@@ -1,15 +1,16 @@
 package com.example.wetube
 
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wetube.databinding.FragmentSearchBinding
 
-class SearchFragment : Fragment() {
+class SearchFragment : DialogFragment() {
     private lateinit var binding: FragmentSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +18,7 @@ class SearchFragment : Fragment() {
         arguments?.let {
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +43,15 @@ class SearchFragment : Fragment() {
         binding.searchRecyclerView.adapter = SearchAdapter(dataList)
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-
+        binding.button.setOnClickListener {
+            dismiss()
+        }
         return binding.root
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        return dialog
     }
 }
