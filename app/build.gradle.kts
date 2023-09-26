@@ -53,11 +53,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
 
-    // Google API client
-    implementation("com.google.api-client:google-api-client:1.32.0")
-    implementation("com.google.oauth-client:google-oauth-client-jetty:1.32.0")
-    implementation("com.google.apis:google-api-services-youtube:v3-rev225-1.25.0")
-
     // retrofit
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
