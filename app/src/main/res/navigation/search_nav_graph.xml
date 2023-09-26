@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_home">
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.example.wetube.HomeFragment"
+        android:name="com.example.wetube.ui.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" >
         <action
