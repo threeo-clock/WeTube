@@ -24,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
         }
 
+        //바인딩으로는 연결이 안되는 버그 수정필요
 //        binding.detailSave.setOnClickListener{
 //            Toast.makeText(this,"저장버튼 클릭",Toast.LENGTH_SHORT).show()
 //        }
