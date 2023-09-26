@@ -28,12 +28,6 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
         navController = host.navController
 
-        //임시: 디테일 페이지로 넘겨주기
-       binding.btn.setOnClickListener {
-            Toast.makeText(this,"액티비티 토스",Toast.LENGTH_SHORT).show()
-            val toss = Intent(this,DetailActivity::class.java)
-            startActivity(toss)
-        }
 
         binding.bottomNavigationView.setupWithNavController(navController)
     }
