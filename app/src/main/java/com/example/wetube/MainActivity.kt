@@ -8,6 +8,8 @@ import com.example.wetube.databinding.ActivityMainBinding
 
 // https://teamsparta.notion.site/e9cce6173ed04fbc871da4818668c4e6
 class MainActivity : AppCompatActivity() {
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var mypageFragment: MypageFragment
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -18,9 +20,12 @@ class MainActivity : AppCompatActivity() {
         setUpBottomNavigationView()
     }
 
-    private fun setUpBottomNavigationView() {
-        binding.bottomNavigationView.menu.getItem(1).isEnabled = false
-        binding.bottomNavigationView.run {
+    private fun setUpBottomNavigationView()= binding.apply{
+        homeFragment = HomeFragment()
+        mypageFragment = MypageFragment()
+
+        bottomNavigationView.menu.getItem(1).isEnabled = false
+        bottomNavigationView.run {
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.fragment_home -> changeFragment(HomeFragment())
@@ -31,8 +36,8 @@ class MainActivity : AppCompatActivity() {
             selectedItemId = R.id.fragment_home
         }
         //플로팅버튼 연결
-        binding.btnSearch.setOnClickListener {
-            this.supportFragmentManager
+        btnSearch.setOnClickListener {
+            this@MainActivity.supportFragmentManager
                 .beginTransaction()
                 .add(android.R.id.content, SearchFragment())
                 .commit()
