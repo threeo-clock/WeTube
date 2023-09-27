@@ -13,19 +13,20 @@ interface YoutubeApi {
     suspend fun getHomePopularVideos(
         @Query("key") apiKey: String = APIKEY,
         @Query("part") part: String = "snippet",
-        @Query("chart") chart: String = "mostPopular"
+        @Query("chart") chart: String = "mostPopular",
+        @Query("videoCategoryId") categoryId: String? = null
     ) : Call<HomeVideoItems>
     @GET("videoCategories")
     suspend fun getHomeCategoryVideos(
         @Query("key") apiKey: String = APIKEY,
         @Query("regionCode") regionCode: String = "KR",
-        @Query("id") id: String,
+        @Query("id") id: String? = null,
         @Query("part") part: String = "snippet",
     ): Call<HomeVideoItems>
     @GET("channels")
     suspend fun getHomeCategoryChannels(
         @Query("key") apiKey: String = APIKEY,
-        @Query("part") part: String = "snippet, contentDetails, id",
-        @Query("id") id: String
+        @Query("part") part: String = "snippet",
+        @Query("id") id: String? = null
     ): Call<HomeVideoItems>
 }
