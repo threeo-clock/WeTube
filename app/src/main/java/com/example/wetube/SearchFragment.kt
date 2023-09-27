@@ -43,7 +43,7 @@ class SearchFragment : DialogFragment() {
         binding.searchRecyclerView.adapter = SearchAdapter(dataList)
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.button.setOnClickListener {
+        binding.ivSearchBack.setOnClickListener {
             dismiss()
         }
         return binding.root
