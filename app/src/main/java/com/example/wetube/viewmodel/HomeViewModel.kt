@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.wetube.api.YoutubeApi
 import com.example.wetube.model.HomeVideoItems
 import com.example.wetube.repository.RepositoryHomeVideos
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val api : YoutubeApi) : ViewModel() {
     private val repositoryHomeVideos = RepositoryHomeVideos()
     private val _popularVideosResult = MutableLiveData<HomeVideoItems>()
     val popularVideosResult: LiveData<HomeVideoItems>
