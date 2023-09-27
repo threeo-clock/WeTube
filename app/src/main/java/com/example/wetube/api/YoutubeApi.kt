@@ -9,9 +9,8 @@ import retrofit2.http.Query
 const val APIKEY = "AIzaSyCevsfPI5jKK5wWhwMX0QxGAzZMJ4QbS4M"
 
 interface YoutubeApi {
-    @GET("videos")
+    @GET("videos?key=${APIKEY}")
     suspend fun getHomePopularVideos(
-        @Query("key") apiKey: String = APIKEY,
         @Query("part") part: String = "snippet",
         @Query("chart") chart: String = "mostPopular",
         @Query("videoCategoryId") categoryId: String? = null
