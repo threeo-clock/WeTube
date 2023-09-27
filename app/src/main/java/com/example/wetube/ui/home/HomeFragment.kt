@@ -1,4 +1,4 @@
-package com.example.wetube
+package com.example.wetube.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.wetube.api.RetrofitClient
 import com.example.wetube.databinding.FragmentHomeBinding
 import com.example.wetube.viewmodel.HomeViewModel
-import androidx.fragment.app.Fragment
-import com.example.wetube.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +23,6 @@ class HomeFragment : Fragment() {
         arguments?.let {
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,21 +30,19 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter(requireActivity())
         binding.rvVideos.adapter = homeAdapter
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
 
         val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         homeViewModel.getPopularVideosData()
         homeViewModel.popularVideosResult.observe(this, Observer {
             // val adapter = Adapter(this, it)
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wetube.model.HomeVideoItems
 import com.example.wetube.repository.RepositoryHomeVideos
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -15,8 +15,12 @@ class HomeViewModel : ViewModel() {
     val popularVideosResult: LiveData<HomeVideoItems>
         get() = _popularVideosResult
 
-    fun getPopularVideosData() = viewModelScope.launch {
-        _popularVideosResult.value = repositoryHomeVideos.getPopularVideos()
+    fun getPopularVideosData() = viewModelScope.launch(Dispatchers.IO) {
+        val response = repositoryHomeVideos.getPopularVideos()
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _popularVideosResult.postValue(body)
+            }
+        }
     }
-
 }

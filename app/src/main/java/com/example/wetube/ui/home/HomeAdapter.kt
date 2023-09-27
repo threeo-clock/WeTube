@@ -14,16 +14,12 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
         val binding = FragmentSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeVideoViewHolder(binding)
     }
-
     override fun getItemCount(): Int = Data.list.size
-
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = Data.list[position]
         val viewHolderType1 = holder as HomeVideoViewHolder
         viewHolderType1.bind(item)
     }
-
     inner class HomeVideoViewHolder(val binding: FragmentSearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Video) = binding.apply {
@@ -37,6 +33,5 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
                 itemView.context.startActivity(myIntent)
             }
         }
-
     }
 }
