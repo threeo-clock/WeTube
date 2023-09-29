@@ -3,17 +3,14 @@ package com.example.wetube.ui.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.FragmentSearchItemBinding
-import com.example.wetube.model.HomeVideoItems
-import com.example.wetube.model.Localized
 import com.example.wetube.model.NewList
-import com.example.wetube.model.Snippet
-import com.example.wetube.model.Thumbnails
 
 class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -35,8 +32,10 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
     inner class HomeVideoViewHolder(val binding: FragmentSearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewList) = binding.apply {
-            Glide.with(context)
-                .load(item.thumbnail)
+            Glide.with(binding.root)
+                .load(Uri.parse(item.thumbnail))
+                .fitCenter()
+                .override(500, 400)
                 .into(imageView)
             searchText.text = item.title
 
