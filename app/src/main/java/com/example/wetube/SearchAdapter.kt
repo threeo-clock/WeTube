@@ -3,12 +3,12 @@ package com.example.wetube
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wetube.databinding.FragmentSearchItemBinding
+import com.example.wetube.databinding.ItemVideoBinding
 
 class SearchAdapter(val item: MutableList<Item>) : RecyclerView.Adapter<SearchAdapter.SearchItems>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchItems {
-        val binding = FragmentSearchItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SearchItems(binding)
     }
 
@@ -20,8 +20,9 @@ class SearchAdapter(val item: MutableList<Item>) : RecyclerView.Adapter<SearchAd
     override fun getItemCount(): Int {
         return item.size
     }
-    inner class SearchItems(val binding: FragmentSearchItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val image = binding.imageView
-        val name = binding.searchText
+
+    inner class SearchItems(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
+        val image = binding.itemVideoIvThumbnail
+        val name = binding.itemVideoTvTitle
     }
 }

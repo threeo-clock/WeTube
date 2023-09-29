@@ -1,8 +1,5 @@
 package com.example.wetube.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
 data class HomeVideoItems(
     val kind: String,
     val etag: String,
@@ -11,16 +8,19 @@ data class HomeVideoItems(
     val pageInfo: PageInfo,
     val items: List<HomeVideoItem>?
 )
+
 data class PageInfo(
     var totalResults: Int,
     var resultsPerPage: Int
 )
+
 data class HomeVideoItem(
     val kind: String,
     val etag: String,
     val id: String,
     val snippet: Snippet,
 )
+
 data class Snippet(
     val channelId: String,
     val title: String,
@@ -43,26 +43,31 @@ data class Thumbnails(
     val medium: Medium,
     val standard: Standard
 )
+
 data class Default(
     val height: Int,
     val url: String,
     val width: Int
 )
+
 data class High(
     val height: Int,
     val url: String,
     val width: Int
 )
+
 data class Maxres(
     val height: Int,
     val url: String,
     val width: Int
 )
+
 data class Medium(
     val height: Int,
     val url: String,
     val width: Int
 )
+
 data class Standard(
     val height: Int,
     val url: String,
@@ -73,6 +78,7 @@ data class Localized(
     val title: String,
     val description: String
 )
+
 data class NewList(
     val thumbnail: String,
     val title: String,

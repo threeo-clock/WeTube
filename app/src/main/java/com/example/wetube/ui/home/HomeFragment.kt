@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeAdapter = HomeAdapter(requireActivity())
-        binding.rvVideos.adapter = homeAdapter
+        binding.homeRvVideos.adapter = homeAdapter
 
         val repositoryHomeVideos = RepositoryHomeVideos()
         val homeViewModelFactory = HomeViewModelFactory(repositoryHomeVideos)
