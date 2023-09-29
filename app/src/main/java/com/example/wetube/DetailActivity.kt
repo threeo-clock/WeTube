@@ -15,18 +15,22 @@ import com.google.gson.Gson
 //제목, 내용, 썸네일이 출력됨
 class DetailActivity : AppCompatActivity() {
 
-    private val binding: ActivityDetailBinding by lazy {
-        ActivityDetailBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        
         setResult()
-
+        
         binding.detailSave.setOnClickListener{
-            Toast.makeText(this,"저장버튼 클릭",Toast.LENGTH_SHORT).show()
+            SaveData()
+            Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
         }
+        LoadData()
+
         binding.detailShare.setOnClickListener{
             Toast.makeText(this,"공유버튼 클릭",Toast.LENGTH_SHORT).show()
         }
@@ -46,5 +50,18 @@ class DetailActivity : AppCompatActivity() {
                 .into(binding.detailImg)
             binding.detailSub.text = videoData.description
         }
+        
+    private fun SaveData(){
+        val pref = getSharedPreferences("pref",0)
+        val edit = pref.edit()
+
+        edit.putString("Title",binding.detailTitle.text.toString())
+        edit.putString("Sub",binding.detailSub.text.toString())
+        edit.apply()
+    }
+    private fun LoadData(){
+        val pref = getSharedPreferences("pref",0)
+        binding.detailTitleTest.text = pref.getString("Title","")
+        binding.detailSubTest.text = pref.getString("Sub","")
     }
 }
