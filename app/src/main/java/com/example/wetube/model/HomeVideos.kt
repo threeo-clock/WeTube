@@ -1,6 +1,7 @@
 package com.example.wetube.model
 
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 data class HomeVideoItems(
     val kind: String,
@@ -72,9 +73,8 @@ data class Localized(
     val title: String,
     val description: String
 )
-
 data class NewList(
-    val thumbnail: String?,
+    val thumbnail: String,
     val title: String,
     val description: String
 )

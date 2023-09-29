@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.model.NewList
+import com.google.gson.GsonBuilder
 
 class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -41,6 +42,9 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
 
             itemView.setOnClickListener {
                 val myIntent = Intent(itemView.context, DetailActivity::class.java)
+                val gson = GsonBuilder().create()
+                val videoData = gson.toJson(items[bindingAdapterPosition])
+                myIntent.putExtra("videoData", videoData)
                 itemView.context.startActivity(myIntent)
             }
         }
