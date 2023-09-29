@@ -26,32 +26,31 @@ class DetailActivity : AppCompatActivity() {
         setResult()
         
         binding.detailSave.setOnClickListener{
-            SaveData()
+            saveData()
             Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
         }
-        LoadData()
+        loadData()
 
         binding.detailShare.setOnClickListener{
             Toast.makeText(this,"공유버튼 클릭",Toast.LENGTH_SHORT).show()
         }
     }
-
     private fun setResult() {
         val videoDataJson = intent.getStringExtra("videoData")
         val gson = Gson()
         val videoData = gson.fromJson(videoDataJson, NewList::class.java)
 
-        if(videoData != null) {
-            binding.detailTitle.text = videoData.title
+        if (videoData != null) {
+            binding.detailTitle.setText(videoData.title)
             Glide.with(this)
                 .load(Uri.parse(videoData.thumbnail))
                 .fitCenter()
-                .override(500,400)
+                .override(500, 400)
                 .into(binding.detailImg)
-            binding.detailSub.text = videoData.description
+            binding.detailSub.setText(videoData.description)
         }
-        
-    private fun SaveData(){
+    }
+    private fun saveData(){
         val pref = getSharedPreferences("pref",0)
         val edit = pref.edit()
 
@@ -59,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
         edit.putString("Sub",binding.detailSub.text.toString())
         edit.apply()
     }
-    private fun LoadData(){
+    private fun loadData(){
         val pref = getSharedPreferences("pref",0)
         binding.detailTitleTest.text = pref.getString("Title","")
         binding.detailSubTest.text = pref.getString("Sub","")
