@@ -1,4 +1,4 @@
-package com.example.wetube
+package com.example.wetube.ui.search
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.wetube.Item
+import com.example.wetube.R
 import com.example.wetube.databinding.FragmentSearchBinding
 
 class SearchFragment : DialogFragment() {

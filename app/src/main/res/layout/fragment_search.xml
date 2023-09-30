@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/container2"
-    tools:context=".SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
    <androidx.constraintlayout.widget.ConstraintLayout
        android:layout_width="match_parent"

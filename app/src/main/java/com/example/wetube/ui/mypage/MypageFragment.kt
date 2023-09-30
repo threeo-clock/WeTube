@@ -1,4 +1,4 @@
-package com.example.wetube
+package com.example.wetube.ui.mypage
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.wetube.ItemModel
 import com.example.wetube.databinding.FragmentMypageBinding
 //itemImageView.clipToOutline = true //이미지뷰 radius 적용
 

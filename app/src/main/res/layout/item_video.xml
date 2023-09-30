@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:layout_width="250dp"
+    android:layout_width="180dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp">
 
     <ImageView
         android:id="@+id/item_video_iv_thumbnail"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_image"
         android:clipToOutline="true"

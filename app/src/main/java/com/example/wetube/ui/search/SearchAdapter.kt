@@ -1,8 +1,9 @@
-package com.example.wetube
+package com.example.wetube.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wetube.Item
 import com.example.wetube.databinding.ItemVideoBinding
 
 class SearchAdapter(val item: MutableList<Item>) : RecyclerView.Adapter<SearchAdapter.SearchItems>() {

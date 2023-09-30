@@ -1,14 +1,14 @@
-package com.example.wetube
+package com.example.wetube.ui.mypage
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wetube.ItemModel
 import com.example.wetube.databinding.ItemBinding
 
 class MyPageAdapter(var mpContext: Context) : RecyclerView.Adapter<MyPageAdapter.ItemViewHolder>() {

@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/fragment_mypage"
-        android:name="com.example.wetube.MypageFragment"
+        android:name="com.example.wetube.ui.mypage.MypageFragment"
         android:label="@string/mypage"
         tools:layout="@layout/fragment_mypage" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.example.wetube.SearchFragment"
+        android:name="com.example.wetube.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" />
 </navigation>
