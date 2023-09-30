@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeAdapter: HomeAdapter
+    private lateinit var channelAdapter: HomeChannelAdapter
     val apiService = RetrofitClient.apiService
 
     private lateinit var homeViewModel: HomeViewModel
@@ -42,7 +43,11 @@ class HomeFragment : Fragment() {
 
         homeAdapter = HomeAdapter(requireActivity())
         binding.homeRvVideos.adapter = homeAdapter
+
         binding.homeRvCategory.adapter = homeAdapter
+
+        channelAdapter = HomeChannelAdapter(requireActivity())
+        binding.homeRvCategory.adapter = channelAdapter
 
         val repositoryHomeVideos = RepositoryHomeVideos()
         val homeViewModelFactory = HomeViewModelFactory(repositoryHomeVideos)
