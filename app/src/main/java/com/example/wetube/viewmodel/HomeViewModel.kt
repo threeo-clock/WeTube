@@ -1,8 +1,6 @@
 package com.example.wetube.viewmodel
 
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,11 +10,14 @@ import com.example.wetube.model.NewList
 import com.example.wetube.repository.RepositoryHomeVideos
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : ViewModel() {
 
     private val _popularVideosResult = MutableLiveData<List<NewList>>()
+
+    private val _videoCategories = MutableLiveData<List<String>?>()
+    val videoCategories: LiveData<List<String>?> = _videoCategories
+
     val popularVideosResult: LiveData<List<NewList>>
         get() = _popularVideosResult
 
@@ -30,6 +31,18 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
             Log.d("viewmodel", "is not successful")
         }
     }
+
+    fun getCategoryVideos() = viewModelScope.launch(Dispatchers.Main) {
+        val response = repositoryHomeVideos.getCategoryVideos()
+        if (response.isSuccessful) {
+            val categoriesResponse = response.body()
+            val categories = categoriesResponse?.items?.map { it.snippet.title }
+            _videoCategories.postValue(categories)
+        } else {
+            Log.d("category", "통신 실패")
+        }
+    }
+
 
     private fun transformToNewList(homeVideoItems: HomeVideoItems?): List<NewList> {
         val newListItems = mutableListOf<NewList>()

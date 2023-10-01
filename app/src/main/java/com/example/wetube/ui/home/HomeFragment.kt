@@ -2,12 +2,11 @@ package com.example.wetube.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.wetube.api.RetrofitClient
 import com.example.wetube.databinding.FragmentHomeBinding
@@ -22,7 +21,6 @@ class HomeFragment : Fragment() {
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var channelAdapter: HomeChannelAdapter
     val apiService = RetrofitClient.apiService
-    // val apiService = RetrofitClient.apiService
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -31,6 +29,7 @@ class HomeFragment : Fragment() {
         arguments?.let {
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +37,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,12 +54,45 @@ class HomeFragment : Fragment() {
         val homeViewModelFactory = HomeViewModelFactory(repositoryHomeVideos)
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         homeViewModel.getPopularVideosData()
+        homeViewModel.getCategoryVideos()
 
         homeViewModel.popularVideosResult.observe(viewLifecycleOwner) { items ->
             homeAdapter.items.addAll(items)
             homeAdapter.notifyDataSetChanged()
         }
+
+        homeViewModel.videoCategories.observe(viewLifecycleOwner) { items ->
+
+            val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, items ?: emptyList())
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.homeSpinnerCategory.adapter = adapter
+
+        }
+
+
+//        clickCategory()
     }
+
+//    private fun clickCategory() {
+//        val retrofit = RetrofitClient.apiService
+//        retrofit.getHomeCategoryVideos(APIKEY,"KR").
+//
+//        getCategoryVideos
+//
+//
+//
+//        binding.homeSpinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val selectCategory = binding.homeSpinnerCategory.selectedItem as YouTubeCategoryItem
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        }
+//    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

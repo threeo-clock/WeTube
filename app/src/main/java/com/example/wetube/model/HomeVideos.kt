@@ -84,3 +84,16 @@ data class NewList(
     val title: String,
     val description: String
 )
+//
+//data class VideoCategoriesResponse(
+//    val items: List<VideoCategory>
+//)
+//
+//data class VideoCategory(
+//    val id: String,
+//    val snippet: Snippet
+//)
+//
+//data class Snippet(
+//    val title: String
+//)

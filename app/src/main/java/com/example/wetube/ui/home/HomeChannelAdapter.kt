@@ -1,17 +1,11 @@
 package com.example.wetube.ui.home
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.ItemChannelsBinding
-import com.example.wetube.databinding.ItemVideoBinding
-import com.example.wetube.model.NewList
-import com.google.gson.GsonBuilder
 
 class HomeChannelAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
