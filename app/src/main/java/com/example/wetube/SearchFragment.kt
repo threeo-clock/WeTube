@@ -71,9 +71,9 @@ class SearchFragment : Fragment() {
         binding.ivSearchBack.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(android.R.id.content, HomeFragment())
-                .addToBackStack(null)
+                .remove(this@SearchFragment)
                 .commit()
+            (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
         }
     }
     override fun onDestroyView() {
