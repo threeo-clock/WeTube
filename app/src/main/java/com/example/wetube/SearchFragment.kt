@@ -71,7 +71,8 @@ class SearchFragment : Fragment() {
         binding.ivSearchBack.setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .remove(this@SearchFragment)
+                .hide(this@SearchFragment)
+                .show(HomeFragment())
                 .commit()
             (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
         }
