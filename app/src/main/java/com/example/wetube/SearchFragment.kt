@@ -1,57 +1,83 @@
 package com.example.wetube
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.wetube.databinding.FragmentHomeBinding
 import com.example.wetube.databinding.FragmentSearchBinding
+import com.example.wetube.repository.RepositoryHomeVideos
+import com.example.wetube.ui.home.HomeAdapter
+import com.example.wetube.ui.home.HomeFragment
+import com.example.wetube.viewmodel.HomeViewModel
+import com.example.wetube.viewmodel.HomeViewModelFactory
+import com.example.wetube.viewmodel.SearchViewModel
+import com.example.wetube.viewmodel.SearchViewModelFactory
 
-class SearchFragment : DialogFragment() {
-    private lateinit var binding: FragmentSearchBinding
+class SearchFragment : Fragment() {
+
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var searchAdapter: SearchAdapter
+
+    private lateinit var searchViewModel : SearchViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentSearchBinding.inflate(layoutInflater)
-        arguments?.let {
-        }
+        arguments?.let {}
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-        val dataList = mutableListOf<Item>()
-
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-        dataList.add(Item(R.drawable.img, "귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"))
-
-        val adapter = SearchAdapter(dataList)
-        binding.searchRecyclerView.adapter = SearchAdapter(dataList)
-        binding.searchRecyclerView.adapter = adapter
-        binding.searchRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.ivSearchBack.setOnClickListener {
-            dismiss()
-        }
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return dialog
+        searchAdapter = SearchAdapter(requireActivity())
+        binding.searchRecyclerView.apply{
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = searchAdapter
+        }
+
+        val repositoryHomeVideos = RepositoryHomeVideos()
+        val searchViewModelFactory = SearchViewModelFactory(repositoryHomeVideos)
+        searchViewModel = ViewModelProvider(this, searchViewModelFactory)[SearchViewModel::class.java]
+
+        binding.btnSearch.setOnClickListener {
+            val searchText = binding.etSearch.text.toString()
+            searchViewModel.getSearchVideosData(searchText)
+        }
+
+        searchViewModel.searchVideosResult.observe(viewLifecycleOwner) { items ->
+            searchAdapter.items.addAll(items)
+            searchAdapter.notifyDataSetChanged()
+        }
+
+        binding.ivSearchBack.setOnClickListener {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .remove(this@SearchFragment)
+                .commit()
+            (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
+        }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

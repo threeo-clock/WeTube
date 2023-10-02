@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wetube.api.RetrofitClient
 import com.example.wetube.databinding.FragmentHomeBinding
 import com.example.wetube.repository.RepositoryHomeVideos
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeAdapter: HomeAdapter
-    val apiService = RetrofitClient.apiService
+    // val apiService = RetrofitClient.apiService
 
     private lateinit var homeViewModel : HomeViewModel
 

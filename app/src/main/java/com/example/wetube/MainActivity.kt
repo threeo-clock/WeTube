@@ -51,5 +51,7 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.frameLayout.id, fragment)
             .commit()
     }
-
+    fun setSelectedNavItem(itemId: Int) {
+        binding.bottomNavigationView.selectedItemId = itemId
+    }
 }
