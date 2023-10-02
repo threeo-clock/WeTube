@@ -7,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.wetube.databinding.ActivityDetailBinding
+import com.example.wetube.model.HomeVideoItems
 import com.example.wetube.model.NewList
+import com.example.wetube.ui.mypage.MypageItem
+import com.example.wetube.viewmodel.LikesViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 
@@ -17,6 +21,7 @@ import com.google.gson.Gson
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var likesViewModel: LikesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,8 @@ class DetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setResult()
+
+        likesViewModel = ViewModelProvider(this)[LikesViewModel::class.java]
 
         //버튼 binding으로 특정하기
         var save = binding.detailSave
@@ -33,32 +40,54 @@ class DetailActivity : AppCompatActivity() {
 
         //버튼 클릭 이벤트 설정
         save.setOnClickListener {
-            if (check == true) {
-                //저장버튼 누를때 아이콘이 바뀌고 토스트메세지 출력
-                saveData()
-                Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
-                save.setImageResource(R.drawable.detail_out_icon)
-                check = false
-            } else {
-                saveData()
-                Toast.makeText(this, "저장버튼 해제", Toast.LENGTH_SHORT).show()
-                save.setImageResource(R.drawable.detail_in_icon)
-                check = true
+            val videoDataJson = intent.getStringExtra("videoData")
+            val videoData = Gson().fromJson(videoDataJson, NewList::class.java)
+
+            if (videoData != null) {
+                val thumbnail = videoData.thumbnail
+                val title = videoData.title
+
+                val mypageItem = MypageItem(thumbnail, title, true)
+
+                likesViewModel.toggleLike(mypageItem)
+
+                if (mypageItem.isLiked) {
+                    Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
+                    save.setImageResource(R.drawable.detail_out_icon)
+                } else {
+                    Toast.makeText(this, "저장버튼 해제", Toast.LENGTH_SHORT).show()
+                    save.setImageResource(R.drawable.detail_in_icon)
+                }
             }
         }
+//        save.setOnClickListener {
+//            if (check == true) {
+//                //저장버튼 누를때 아이콘이 바뀌고 토스트메세지 출력
+//                saveData()
+//                Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
+//                save.setImageResource(R.drawable.detail_out_icon)
+//                check = false
+//            } else {
+//                saveData()
+//                Toast.makeText(this, "저장버튼 해제", Toast.LENGTH_SHORT).show()
+//                save.setImageResource(R.drawable.detail_in_icon)
+//                check = true
+//            }
+//        }
         loadData()
 
-        share.setOnClickListener{
+        share.setOnClickListener {
             val share = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(
-                    Intent.EXTRA_TEXT,"여기에 URL입력"
+                    Intent.EXTRA_TEXT, "여기에 URL입력"
                 )
                 type = "text/plain"
             }
             startActivity(Intent.createChooser(share, null))
         }
     }
+
     private fun setResult() {
         val videoDataJson = intent.getStringExtra("videoData")
         val gson = Gson()
@@ -76,16 +105,17 @@ class DetailActivity : AppCompatActivity() {
     }
 
     //데이터 저장 및 불러오기
-    private fun saveData(){
-        val pref = getSharedPreferences("pref",0)
+    private fun saveData() {
+        val pref = getSharedPreferences("pref", 0)
         val edit = pref.edit()
 
-        edit.putString("Title",binding.detailTitle.text.toString())
-        edit.putString("Sub",binding.detailSub.text.toString())
+        edit.putString("Title", binding.detailTitle.text.toString())
+        edit.putString("Sub", binding.detailSub.text.toString())
         edit.apply()
     }
-    private fun loadData(){
-        val pref = getSharedPreferences("pref",0)
+
+    private fun loadData() {
+        val pref = getSharedPreferences("pref", 0)
     }
 
     //디테일에서 메인으로 돌아갈때 슬라이드 효과

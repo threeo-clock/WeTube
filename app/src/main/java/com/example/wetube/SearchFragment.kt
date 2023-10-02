@@ -87,7 +87,6 @@ class SearchFragment : Fragment() {
             (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

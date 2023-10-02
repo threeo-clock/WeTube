@@ -3,22 +3,23 @@ package com.example.wetube.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import com.example.wetube.ui.mypage.MypageItem
 
 class LikesViewModel : ViewModel() {
-    private val likedVideos = mutableSetOf<String>()
-    private val _likedVideosLiveData = MutableLiveData<Set<String>>()
-    val likedVideosLiveData : LiveData<Set<String>> get() = _likedVideosLiveData
 
-    fun isVideoLiked(videoId: String): Boolean {
-        return likedVideos.contains(videoId)
-    }
+    private val _likedVideosLiveData = MutableLiveData<MutableSet<MypageItem>>()
+    val likedVideosLiveData : LiveData<List<MypageItem>> get() = _likedVideosLiveData.map { it.toList() }
 
-    fun toggleLike(videoId: String) {
-        if (likedVideos.contains(videoId)) {
-            likedVideos.remove(videoId)
+    fun toggleLike(mypageItem : MypageItem) {
+
+        val currentSet = _likedVideosLiveData.value ?: mutableSetOf()
+        val removeItem = currentSet.find { it.thumbnail == mypageItem.thumbnail }
+        if (removeItem != null) {
+            currentSet.remove(removeItem)
         } else {
-            likedVideos.add(videoId)
+            currentSet.add(mypageItem)
         }
-        _likedVideosLiveData.value = likedVideos
+        _likedVideosLiveData.value = currentSet
     }
 }

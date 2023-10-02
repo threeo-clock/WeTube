@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MypageFragment">
+    tools:context=".ui.mypage.MypageFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -22,8 +22,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/mypage"
-            tools:src="@tools:sample/avatars" />
+            android:src="@drawable/mypage" />
 
         <TextView
             android:id="@+id/tv_channelname"
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginStart="15dp"
-        android:text="Favorite Video"
+        android:text="Favorite Videos"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
@@ -62,9 +61,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_recyclerview"
         android:layout_width="358dp"
-        android:layout_height="359dp"
+        android:layout_height="0dp"
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/fragment_search_item"
         app:layout_constraintTop_toBottomOf="@+id/tv_favorite" />
 </androidx.constraintlayout.widget.ConstraintLayout>
