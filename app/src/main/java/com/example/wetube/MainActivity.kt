@@ -54,4 +54,10 @@ class MainActivity : AppCompatActivity() {
     fun setSelectedNavItem(itemId: Int) {
         binding.bottomNavigationView.selectedItemId = itemId
     }
+
+    //디테일 액티비티로 넘어갈때 애니메이션 효과
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition(R.anim.enter_slide_down, R.anim.exit_slide_down)
+    }
 }
