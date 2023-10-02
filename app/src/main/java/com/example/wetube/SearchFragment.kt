@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -60,12 +61,21 @@ class SearchFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener {
             val searchText = binding.etSearch.text.toString()
-            searchViewModel.getSearchVideosData(searchText)
+            if (searchText.isNotEmpty()) {
+                searchAdapter.items.clear()
+                searchViewModel.getSearchVideosData(searchText,requireContext())
+            } else {
+                Toast.makeText(requireContext(),"검색어를 입력해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
 
         searchViewModel.searchVideosResult.observe(viewLifecycleOwner) { items ->
-            searchAdapter.items.addAll(items)
-            searchAdapter.notifyDataSetChanged()
+            if (items.isEmpty()) {
+                Toast.makeText(requireContext(),"검색결과가 없습니다.",Toast.LENGTH_SHORT).show()
+            } else {
+                searchAdapter.items.addAll(items)
+                searchAdapter.notifyDataSetChanged()
+            }
         }
 
         binding.ivSearchBack.setOnClickListener {
@@ -76,6 +86,7 @@ class SearchFragment : Fragment() {
             (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
