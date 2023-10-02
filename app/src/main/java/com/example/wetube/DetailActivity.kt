@@ -1,6 +1,7 @@
 package com.example.wetube
 
 import android.app.Instrumentation.ActivityResult
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,17 +23,40 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        
         setResult()
-        
-        binding.detailSave.setOnClickListener{
-            saveData()
-            Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
+
+        //버튼 binding으로 특정하기
+        var save = binding.detailSave
+        var share = binding.detailShare
+        save.bringToFront()
+        var check = true
+
+        //버튼 클릭 이벤트 설정
+        save.setOnClickListener {
+            if (check == true) {
+                //저장버튼 누를때 아이콘이 바뀌고 토스트메세지 출력
+                saveData()
+                Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
+                save.setImageResource(R.drawable.detail_out_icon)
+                check = false
+            } else {
+                saveData()
+                Toast.makeText(this, "저장버튼 해제", Toast.LENGTH_SHORT).show()
+                save.setImageResource(R.drawable.detail_in_icon)
+                check = true
+            }
         }
         loadData()
 
-        binding.detailShare.setOnClickListener{
-            Toast.makeText(this,"공유버튼 클릭",Toast.LENGTH_SHORT).show()
+        share.setOnClickListener{
+            val share = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,"여기에 URL입력"
+                )
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(share, null))
         }
     }
     private fun setResult() {
@@ -50,6 +74,8 @@ class DetailActivity : AppCompatActivity() {
             binding.detailSub.setText(videoData.description)
         }
     }
+
+    //데이터 저장 및 불러오기
     private fun saveData(){
         val pref = getSharedPreferences("pref",0)
         val edit = pref.edit()
@@ -60,7 +86,13 @@ class DetailActivity : AppCompatActivity() {
     }
     private fun loadData(){
         val pref = getSharedPreferences("pref",0)
-        binding.detailTitleTest.text = pref.getString("Title","")
-        binding.detailSubTest.text = pref.getString("Sub","")
     }
+
+    //디테일에서 메인으로 돌아갈때 슬라이드 효과
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.enter_slide_up, R.anim.exit_slide_up)
+    }
+    //메인에서 디테일로 넘어올때는 아래 코드 필요
+    //overridePendingTransition(R.anim.enter_slide_down, R.anim.enter_slide_down)
 }
