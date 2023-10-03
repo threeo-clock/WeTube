@@ -68,10 +68,10 @@ class DetailActivity : AppCompatActivity() {
     private fun updateLikeButtonState(thumbnail: String) {
         if (likesViewModel.isVideoLiked(thumbnail)) {
             binding.detailSave.setImageResource(R.drawable.detail_in_icon)
-            Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_SHORT).show()
         } else {
             binding.detailSave.setImageResource(R.drawable.detail_out_icon)
-            Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 

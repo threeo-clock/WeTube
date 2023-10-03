@@ -1,15 +1,18 @@
 package com.example.wetube.ui.mypage
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.databinding.ItemMypageFavoriteVideosBinding
 import com.example.wetube.model.NewList
+import com.google.gson.GsonBuilder
 
 class MyPageAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items = ArrayList<NewList>()
@@ -35,6 +38,14 @@ class MyPageAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
                 .override(500, 400)
                 .into(imageView)
             searchText.text = item.title
+
+            itemView.setOnClickListener {
+                val myIntent = Intent(itemView.context, DetailActivity::class.java)
+                val gson = GsonBuilder().create()
+                val videoData = gson.toJson(items[bindingAdapterPosition])
+                myIntent.putExtra("videoData", videoData)
+                itemView.context.startActivity(myIntent)
+            }
         }
     }
 }
