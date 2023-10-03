@@ -1,6 +1,7 @@
 package com.example.wetube.api
 
 import com.example.wetube.model.HomeVideoItems
+import com.example.wetube.model.SearchVideoItems
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -28,4 +29,11 @@ interface YoutubeApi {
         @Query("part") part: String = "snippet",
         @Query("id") id: String? = null
     ): Response<HomeVideoItems>
+    @GET("search?key=${APIKEY}")
+    suspend fun getSearchVideos(
+        @Query("q") query: String?,
+        @Query("part") part: String = "snippet",
+        @Query("maxResults") maxResults: Int? = 20,
+        @Query("regionCode") regionCode: String? = "KR"
+    ) : Response<SearchVideoItems>
 }

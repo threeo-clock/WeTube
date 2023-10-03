@@ -53,15 +53,15 @@
            app:layout_constraintTop_toTopOf="parent" />
 
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/search_recyclerView_Item"
-           android:layout_width="match_parent"
-           android:layout_height="40dp"
-           android:layout_marginTop="20dp"
+<!--       <androidx.recyclerview.widget.RecyclerView-->
+<!--           android:id="@+id/search_recyclerView_Item"-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="40dp"-->
+<!--           android:layout_marginTop="20dp"-->
 
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/et_search" />
+<!--           app:layout_constraintEnd_toEndOf="parent"-->
+<!--           app:layout_constraintStart_toStartOf="parent"-->
+<!--           app:layout_constraintTop_toBottomOf="@+id/et_search" />-->
 
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/search_recyclerView"
@@ -70,7 +70,7 @@
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/search_recyclerView_Item" />
+           app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 
