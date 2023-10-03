@@ -70,6 +70,7 @@
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
+           tools:listitem="@layout/fragment_search_item"
            app:layout_constraintTop_toBottomOf="@+id/et_search" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>

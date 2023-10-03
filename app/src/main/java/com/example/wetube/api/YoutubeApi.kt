@@ -33,7 +33,7 @@ interface YoutubeApi {
     suspend fun getSearchVideos(
         @Query("q") query: String?,
         @Query("part") part: String = "snippet",
-        @Query("maxResults") maxResults: Int? = 20,
+        @Query("maxResults") maxResults: Int? = 100,
         @Query("regionCode") regionCode: String? = "KR"
     ) : Response<SearchVideoItems>
 }
