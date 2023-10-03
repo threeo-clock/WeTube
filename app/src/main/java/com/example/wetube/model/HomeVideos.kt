@@ -97,3 +97,8 @@ data class NewList(
 //data class Snippet(
 //    val title: String
 //)
+data class ChannelItem(
+    val thumbnail: String,
+    val title: String,
+    val description: String
+)

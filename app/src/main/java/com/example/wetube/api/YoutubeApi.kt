@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val APIKEY = "AIzaSyCaEJB6M6KZ8U2buAGMapXSIPBWJKXByL0"
+const val APIKEY = "AIzaSyCi27TW1A0853L0ALxtzt7MVJyp3rIrJh0"
 
 interface YoutubeApi {
     @GET("videos?key=${APIKEY}")
@@ -22,7 +22,8 @@ interface YoutubeApi {
         @Query("key") apiKey: String = APIKEY,
         @Query("regionCode") regionCode: String = "KR",
 //        @Query("id") id: String? = null,
-//        @Query("part") part: String = "snippet",
+        @Query("part") part: String = "snippet",
+        @Query("categoryId") categoryId: String ,
     ): Response<HomeVideoItems>
 
     @GET("channels")
