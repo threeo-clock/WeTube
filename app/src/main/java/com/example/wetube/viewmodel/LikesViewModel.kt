@@ -1,25 +1,45 @@
 package com.example.wetube.viewmodel
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import com.example.wetube.LikedVideoPreferences
+import com.example.wetube.model.NewList
 import com.example.wetube.ui.mypage.MypageItem
 
-class LikesViewModel : ViewModel() {
+class LikesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _likedVideosLiveData = MutableLiveData<MutableSet<MypageItem>>()
-    val likedVideosLiveData : LiveData<List<MypageItem>> get() = _likedVideosLiveData.map { it.toList() }
+    private val likedVideoPreferences = LikedVideoPreferences(application)
 
-    fun toggleLike(mypageItem : MypageItem) {
+    private val _likedVideosLiveData = MutableLiveData<List<NewList>>()
+    val likedVideosLiveData: LiveData<List<NewList>> get() = _likedVideosLiveData
 
-        val currentSet = _likedVideosLiveData.value ?: mutableSetOf()
-        val removeItem = currentSet.find { it.thumbnail == mypageItem.thumbnail }
-        if (removeItem != null) {
-            currentSet.remove(removeItem)
+    init { refreshLikedVideos()}
+
+    fun setVideoLiked(thumbnail: String, newList: NewList) {
+        likedVideoPreferences.setVideoLiked(thumbnail, newList)
+        refreshLikedVideos()
+    }
+    fun removeVideoLiked(thumbnail: String) {
+        likedVideoPreferences.removeVideoLiked(thumbnail)
+        refreshLikedVideos()
+    }
+    fun isVideoLiked(thumbnail: String): Boolean {
+        return likedVideoPreferences.isVideoLiked(thumbnail)
+    }
+    fun toggleLike(thumbnail: String, newList: NewList) {
+        if (isVideoLiked(thumbnail)) {
+            removeVideoLiked(thumbnail)
         } else {
-            currentSet.add(mypageItem)
+            setVideoLiked(thumbnail, newList)
         }
-        _likedVideosLiveData.value = currentSet
+        refreshLikedVideos()
+    }
+    fun refreshLikedVideos() {
+        _likedVideosLiveData.value = likedVideoPreferences.getLikedVideos()
     }
 }

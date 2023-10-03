@@ -1,36 +1,29 @@
 package com.example.wetube
 
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.example.wetube.databinding.ActivityDetailBinding
-import com.example.wetube.model.HomeVideoItems
 import com.example.wetube.model.NewList
-import com.example.wetube.ui.mypage.MypageItem
 import com.example.wetube.viewmodel.LikesViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 import com.google.gson.Gson
 
 //제목, 내용, 썸네일이 출력됨
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var likesViewModel: LikesViewModel
+    private val likesViewModel: LikesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         setResult()
-
-        likesViewModel = ViewModelProvider(this)[LikesViewModel::class.java]
 
         //버튼 binding으로 특정하기
         var save = binding.detailSave
@@ -39,26 +32,11 @@ class DetailActivity : AppCompatActivity() {
         var check = true
 
         //버튼 클릭 이벤트 설정
-        save.setOnClickListener {
+        binding.detailSave.setOnClickListener {
             val videoDataJson = intent.getStringExtra("videoData")
             val videoData = Gson().fromJson(videoDataJson, NewList::class.java)
-
-            if (videoData != null) {
-                val thumbnail = videoData.thumbnail
-                val title = videoData.title
-
-                val mypageItem = MypageItem(thumbnail, title, true)
-
-                likesViewModel.toggleLike(mypageItem)
-
-                if (mypageItem.isLiked) {
-                    Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
-                    save.setImageResource(R.drawable.detail_out_icon)
-                } else {
-                    Toast.makeText(this, "저장버튼 해제", Toast.LENGTH_SHORT).show()
-                    save.setImageResource(R.drawable.detail_in_icon)
-                }
-            }
+            likesViewModel.toggleLike(videoData.thumbnail, videoData)
+            updateLikeButtonState(videoData.thumbnail)
         }
 //        save.setOnClickListener {
 //            if (check == true) {
@@ -74,7 +52,7 @@ class DetailActivity : AppCompatActivity() {
 //                check = true
 //            }
 //        }
-        loadData()
+//        loadData()
 
         share.setOnClickListener {
             val share = Intent().apply {
@@ -85,6 +63,15 @@ class DetailActivity : AppCompatActivity() {
                 type = "text/plain"
             }
             startActivity(Intent.createChooser(share, null))
+        }
+    }
+    private fun updateLikeButtonState(thumbnail: String) {
+        if (likesViewModel.isVideoLiked(thumbnail)) {
+            binding.detailSave.setImageResource(R.drawable.detail_in_icon)
+            Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_LONG).show()
+        } else {
+            binding.detailSave.setImageResource(R.drawable.detail_out_icon)
+            Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_LONG).show()
         }
     }
 

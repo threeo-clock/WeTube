@@ -1,19 +1,16 @@
 package com.example.wetube.ui.mypage
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.wetube.databinding.FragmentMypageBinding
 import com.example.wetube.viewmodel.LikesViewModel
-import com.example.wetube.viewmodel.LikesViewModelFactory
 
 //itemImageView.clipToOutline = true //이미지뷰 radius 적용
 
@@ -22,7 +19,7 @@ class MypageFragment : Fragment() {
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!
     private lateinit var mpAdapter: MyPageAdapter
-    private lateinit var likesViewModel: LikesViewModel
+    private val likesViewModel: LikesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +42,16 @@ class MypageFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = mpAdapter
         }
-
-        val likesViewModelFactory = LikesViewModelFactory()
-        likesViewModel = ViewModelProvider(this, likesViewModelFactory)[LikesViewModel::class.java]
+        Log.d("Mypage Frag", "recyclerview")
 
         likesViewModel.likedVideosLiveData.observe(viewLifecycleOwner) { items ->
             mpAdapter.items.clear()
             mpAdapter.items.addAll(items)
+            Log.d("Mypage Frag", "items 추가")
+            Log.d("Mypage Frag", "likedVideosLiveData.observe - Items: ${items.size}")
             mpAdapter.notifyDataSetChanged()
         }
+        Log.d("Mypage Frag", "viewmodel")
     }
     override fun onDestroyView() {
         super.onDestroyView()

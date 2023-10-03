@@ -3,6 +3,7 @@ package com.example.wetube
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ class SearchAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
         val item = items[position]
         val viewHolderType2 = holder as SearchItems
         viewHolderType2.bind(item)
+        Log.d("search Adapter", "bindviewholder")
     }
     override fun getItemCount(): Int {
         return items.size
