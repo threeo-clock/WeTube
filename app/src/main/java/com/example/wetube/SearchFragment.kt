@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wetube.databinding.FragmentHomeBinding
 import com.example.wetube.databinding.FragmentSearchBinding
 import com.example.wetube.repository.RepositoryHomeVideos
@@ -49,6 +50,28 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var currentPage = 1
+        var isLoading = false
+
+        binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val lastVisbleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisbleItemPosition + 1 == totalItemCount && !isLoading) {
+                    currentPage++
+                    isLoading = true
+                    val searchText = binding.etSearch.text.toString()
+                    if (searchText.isNotEmpty()) {
+                        searchViewModel.getSearchVideosData(searchText,requireContext())
+                    }
+                }
+            }
+        })
+
         searchAdapter = SearchAdapter(requireActivity())
         binding.searchRecyclerView.apply{
             setHasFixedSize(true)
@@ -71,7 +94,6 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(),"검색어를 입력해주세요.",Toast.LENGTH_SHORT).show()
             }
         }
-
         searchViewModel.searchVideosResult.observe(viewLifecycleOwner) { items ->
             if (items.isEmpty()) {
                 Toast.makeText(requireContext(),"검색결과가 없습니다.",Toast.LENGTH_SHORT).show()
@@ -89,6 +111,7 @@ class SearchFragment : Fragment() {
                 .commit()
             (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
         }
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
