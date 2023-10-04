@@ -27,10 +27,9 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setResult()
+        updateLikeButtonState(likesViewModel.isVideoLiked(videoData.thumbnail), false)
 
         binding.detailSave.bringToFront()
-
-        updateLikeButtonState(likesViewModel.isVideoLiked(videoData.thumbnail))
 
         likesViewModel.currentLikedState.observe(this, Observer {
             isLiked -> updateLikeButtonState(isLiked)
@@ -51,13 +50,13 @@ class DetailActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(share, null))
         }
     }
-    private fun updateLikeButtonState(isLiked: Boolean) {
+    private fun updateLikeButtonState(isLiked: Boolean, showToast: Boolean = true) {
         if (isLiked) {
             binding.detailSave.setImageResource(R.drawable.detail_iv_heart_fill)
-            Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            if (showToast) Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_SHORT).show()
         } else {
             binding.detailSave.setImageResource(R.drawable.detail_iv_heart)
-            Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+            if (showToast) Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
     private fun setResult() {

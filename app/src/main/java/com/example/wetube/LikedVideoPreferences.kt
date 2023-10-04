@@ -8,19 +8,31 @@ import com.google.gson.Gson
 
 class LikedVideoPreferences(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("LikedVideos", Context.MODE_PRIVATE)
-    fun setVideoLiked(thumbnail: String, newList: NewList) {
+
+    fun setVideoLiked(thumbnail: String, newList: NewList, isLiked: Boolean = true) {
         val jsonString = Gson().toJson(newList)
-        preferences.edit().putString(thumbnail, jsonString).apply()
+        preferences.edit().apply {
+            putString(thumbnail, jsonString)
+            putBoolean(thumbnail + "_liked", isLiked)
+            apply()
+        }
     }
+
     fun isVideoLiked(thumbnail: String): Boolean {
-        return preferences.contains(thumbnail)
+        return preferences.getBoolean(thumbnail + "_liked", false)
     }
+
     fun removeVideoLiked(thumbnail: String) {
-        return preferences.edit().remove(thumbnail).apply()
+        preferences.edit().apply {
+            remove(thumbnail)
+            remove(thumbnail + "_liked")
+            apply()
+        }
     }
+
     fun getLikedVideos(): List<NewList> {
         val likedVideos = mutableListOf<NewList>()
-        preferences.all.forEach {(_, value) ->
+        preferences.all.filterKeys { !it.endsWith("_liked") }.forEach { (_, value) ->
             val newList: NewList = Gson().fromJson(value as String, NewList::class.java)
             likedVideos.add(newList)
         }
