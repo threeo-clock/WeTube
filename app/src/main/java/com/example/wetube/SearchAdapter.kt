@@ -3,9 +3,11 @@ package com.example.wetube
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -13,6 +15,7 @@ import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.model.NewList
 import com.example.wetube.ui.home.HomeAdapter
 import com.google.gson.GsonBuilder
+import kotlin.math.max
 
 class SearchAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -35,11 +38,13 @@ class SearchAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
         fun bind(item: NewList) = binding.apply {
             Glide.with(binding.root)
                 .load(Uri.parse(item.thumbnail))
-                .fitCenter()
-                .override(1000, 800)
+                .centerCrop()
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(imageView)
-            searchText.text = item.title
+            searchText.setHtmlText(item.title)
         }
+    }
+    fun TextView.setHtmlText(htmlText: String) {
+        this.text = Html.fromHtml(htmlText,Html.FROM_HTML_MODE_LEGACY)
     }
 }
