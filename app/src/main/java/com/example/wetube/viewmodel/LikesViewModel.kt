@@ -1,15 +1,11 @@
 package com.example.wetube.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import com.example.wetube.LikedVideoPreferences
 import com.example.wetube.model.NewList
-import com.example.wetube.ui.mypage.MypageItem
 
 class LikesViewModel(application: Application) : AndroidViewModel(application) {
 

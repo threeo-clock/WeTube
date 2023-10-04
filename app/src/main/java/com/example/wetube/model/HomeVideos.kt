@@ -78,5 +78,6 @@ data class Localized(
 data class NewList(
     val thumbnail: String,
     val title: String,
-    val description: String
+    val description: String,
+    val url: String
 )
