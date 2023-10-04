@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
@@ -58,14 +60,17 @@ class DetailActivity : AppCompatActivity() {
         videoData = gson.fromJson(videoDataJson, NewList::class.java)
 
         if (videoData != null) {
-            binding.detailTitle.setText(videoData.title)
+            binding.detailTitle.setHtmlText(videoData.title)
             Glide.with(this)
                 .load(Uri.parse(videoData.thumbnail))
                 .fitCenter()
                 .override(500, 400)
                 .into(binding.detailImg)
-            binding.detailSub.setText(videoData.description)
+            binding.detailSub.setHtmlText(videoData.description)
         }
+    }
+    fun TextView.setHtmlText(htmlText: String) {
+        this.text = Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY)
     }
 
     //디테일에서 메인으로 돌아갈때 슬라이드 효과
