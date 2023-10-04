@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
@@ -62,6 +63,8 @@ class SearchFragment : Fragment() {
         binding.btnSearch.setOnClickListener {
             val searchText = binding.etSearch.text.toString()
             if (searchText.isNotEmpty()) {
+                binding.clBlankscreen.visibility = View.GONE
+                binding.searchRecyclerView.visibility = View.VISIBLE
                 searchAdapter.items.clear()
                 searchViewModel.getSearchVideosData(searchText,requireContext())
             } else {
