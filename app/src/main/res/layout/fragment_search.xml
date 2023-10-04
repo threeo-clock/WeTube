@@ -67,11 +67,12 @@
            android:id="@+id/search_recyclerView"
            android:layout_width="match_parent"
            android:layout_height="0dp"
+           android:layout_marginTop="10dp"
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
-           tools:listitem="@layout/fragment_search_item"
-           app:layout_constraintTop_toBottomOf="@+id/et_search" />
+           app:layout_constraintTop_toBottomOf="@+id/et_search"
+           tools:listitem="@layout/fragment_search_item" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

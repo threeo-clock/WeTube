@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wetube.DetailActivity
+import com.example.wetube.databinding.FragmentMainItemBinding
 import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.model.NewList
 import com.google.gson.GsonBuilder
@@ -19,7 +20,7 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
-            FragmentSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            FragmentMainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeVideoViewHolder(binding)
     }
 
@@ -30,15 +31,15 @@ class HomeAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
         viewHolderType1.bind(item)
     }
 
-    inner class HomeVideoViewHolder(val binding: FragmentSearchItemBinding) :
+    inner class HomeVideoViewHolder(val binding: FragmentMainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewList) = binding.apply {
             Glide.with(binding.root)
                 .load(Uri.parse(item.thumbnail))
                 .fitCenter()
                 .override(500, 400)
-                .into(imageView)
-            searchText.text = item.title
+                .into(imageView2)
+            searchText2.text = item.title
 
             itemView.setOnClickListener {
                 val myIntent = Intent(itemView.context, DetailActivity::class.java)
