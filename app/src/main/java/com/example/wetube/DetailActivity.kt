@@ -8,6 +8,7 @@ import android.text.Html
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.wetube.databinding.ActivityDetailBinding
 import com.example.wetube.model.NewList
@@ -29,9 +30,14 @@ class DetailActivity : AppCompatActivity() {
 
         binding.detailSave.bringToFront()
 
+        updateLikeButtonState(likesViewModel.isVideoLiked(videoData.thumbnail))
+
+        likesViewModel.currentLikedState.observe(this, Observer {
+            isLiked -> updateLikeButtonState(isLiked)
+        })
+
         binding.detailSave.setOnClickListener {
             likesViewModel.toggleLike(videoData.thumbnail, videoData)
-            updateLikeButtonState(videoData.thumbnail)
         }
 
         binding.detailShare.setOnClickListener {
@@ -45,8 +51,8 @@ class DetailActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(share, null))
         }
     }
-    private fun updateLikeButtonState(thumbnail: String) {
-        if (likesViewModel.isVideoLiked(thumbnail)) {
+    private fun updateLikeButtonState(isLiked: Boolean) {
+        if (isLiked) {
             binding.detailSave.setImageResource(R.drawable.detail_iv_heart_fill)
             Toast.makeText(this, "마이페이지에 저장되었습니다.", Toast.LENGTH_SHORT).show()
         } else {

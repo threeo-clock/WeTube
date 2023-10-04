@@ -42,16 +42,12 @@ class MypageFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = mpAdapter
         }
-        Log.d("Mypage Frag", "recyclerview")
 
         likesViewModel.likedVideosLiveData.observe(viewLifecycleOwner) { items ->
             mpAdapter.items.clear()
             mpAdapter.items.addAll(items)
-            Log.d("Mypage Frag", "items 추가")
-            Log.d("Mypage Frag", "likedVideosLiveData.observe - Items: ${items.size}")
             mpAdapter.notifyDataSetChanged()
         }
-        Log.d("Mypage Frag", "viewmodel")
     }
     override fun onDestroyView() {
         super.onDestroyView()

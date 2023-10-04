@@ -14,6 +14,9 @@ class LikesViewModel(application: Application) : AndroidViewModel(application) {
     private val _likedVideosLiveData = MutableLiveData<List<NewList>>()
     val likedVideosLiveData: LiveData<List<NewList>> get() = _likedVideosLiveData
 
+    private val _currentLikedState = MutableLiveData<Boolean>()
+    val currentLikedState: LiveData<Boolean> get() = _currentLikedState
+
     init { refreshLikedVideos()}
 
     fun setVideoLiked(thumbnail: String, newList: NewList) {
@@ -30,8 +33,10 @@ class LikesViewModel(application: Application) : AndroidViewModel(application) {
     fun toggleLike(thumbnail: String, newList: NewList) {
         if (isVideoLiked(thumbnail)) {
             removeVideoLiked(thumbnail)
+            _currentLikedState.value = false
         } else {
             setVideoLiked(thumbnail, newList)
+            _currentLikedState.value = true
         }
         refreshLikedVideos()
     }
