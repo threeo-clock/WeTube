@@ -51,8 +51,9 @@ class SearchViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : 
             val thumbnail = item.snippet.thumbnails.default.url
             val title = item.snippet.title
             val description = item.snippet.description
+            val url = item.snippet.thumbnails.default.url
 
-            val newList = NewList(thumbnail, title, description)
+            val newList = NewList(thumbnail, title, description, url)
             newListItems.add(newList)
         }
         return newListItems
