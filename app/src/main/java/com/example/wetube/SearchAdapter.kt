@@ -42,6 +42,14 @@ class SearchAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(imageView)
             searchText.setHtmlText(item.title)
+
+            itemView.setOnClickListener {
+                val myIntent = Intent(itemView.context, DetailActivity::class.java)
+                val gson = GsonBuilder().create()
+                val videoData = gson.toJson(items[bindingAdapterPosition])
+                myIntent.putExtra("videoData", videoData)
+                itemView.context.startActivity(myIntent)
+            }
         }
     }
     fun TextView.setHtmlText(htmlText: String) {
