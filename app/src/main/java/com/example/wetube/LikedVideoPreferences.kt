@@ -9,6 +9,7 @@ import com.google.gson.Gson
 class LikedVideoPreferences(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("LikedVideos", Context.MODE_PRIVATE)
 
+    // (key, value)
     fun setVideoLiked(thumbnail: String, newList: NewList, isLiked: Boolean = true) {
         val jsonString = Gson().toJson(newList)
         preferences.edit().apply {
@@ -17,11 +18,9 @@ class LikedVideoPreferences(context: Context) {
             apply()
         }
     }
-
     fun isVideoLiked(thumbnail: String): Boolean {
         return preferences.getBoolean(thumbnail + "_liked", false)
     }
-
     fun removeVideoLiked(thumbnail: String) {
         preferences.edit().apply {
             remove(thumbnail)
@@ -29,7 +28,6 @@ class LikedVideoPreferences(context: Context) {
             apply()
         }
     }
-
     fun getLikedVideos(): List<NewList> {
         val likedVideos = mutableListOf<NewList>()
         preferences.all.filterKeys { !it.endsWith("_liked") }.forEach { (_, value) ->

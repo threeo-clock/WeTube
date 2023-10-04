@@ -19,7 +19,7 @@ class LikesViewModel(application: Application) : AndroidViewModel(application) {
     private val _currentLikedState = MutableLiveData<Boolean>()
     val currentLikedState: LiveData<Boolean> get() = _currentLikedState
 
-    init { refreshLikedVideos()}
+    init { refreshLikedVideos() }
 
     fun setVideoLiked(thumbnail: String, newList: NewList) {
         likedVideoPreferences.setVideoLiked(thumbnail, newList)
