@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
 import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.model.NewList
 import com.example.wetube.ui.home.HomeAdapter
@@ -35,7 +36,8 @@ class SearchAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
             Glide.with(binding.root)
                 .load(Uri.parse(item.thumbnail))
                 .fitCenter()
-                .override(500, 400)
+                .override(1000, 800)
+                .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(imageView)
             searchText.text = item.title
         }
