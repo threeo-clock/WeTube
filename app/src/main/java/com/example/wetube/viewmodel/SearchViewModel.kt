@@ -22,8 +22,9 @@ class SearchViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : 
     var isLoaging = false
     private val existingData = mutableListOf<NewList>()
 
-    fun getSearchVideosData(searchText: String, context: Context) = viewModelScope.launch(Dispatchers.Main) {
-        if (isLoaging) return@launch
+    fun getSearchVideosData(searchText: String, context: Context) =
+        viewModelScope.launch(Dispatchers.Main) {
+            if (isLoaging) return@launch
             try {
                 val response =
                     repositoryHomeVideos.getSearchVideos(searchText, pageToken = nextPageToken)
