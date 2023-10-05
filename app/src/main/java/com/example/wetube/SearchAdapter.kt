@@ -21,6 +21,7 @@ class SearchAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
 
     var items = ArrayList<NewList>()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchItems {
         val binding = FragmentSearchItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return SearchItems(binding)
