@@ -34,6 +34,7 @@ interface YoutubeApi {
         @Query("q") query: String?,
         @Query("part") part: String = "snippet",
         @Query("maxResults") maxResults: Int? = 6,
-        @Query("regionCode") regionCode: String? = "KR"
+        @Query("regionCode") regionCode: String? = "KR",
+        @Query("pageToken") pageToken: String? = null
     ) : Response<SearchVideoItems>
 }
