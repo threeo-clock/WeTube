@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wetube.DetailActivity
+import com.example.wetube.databinding.FragmentMainItemBinding
+import com.example.wetube.databinding.FragmentSearchItemBinding
 import com.example.wetube.databinding.ItemVideoBinding
 import com.example.wetube.model.NewList
 import com.google.gson.GsonBuilder
@@ -18,6 +20,7 @@ class HomePopularAdapter(private val context: Context) : RecyclerView.Adapter<Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
+            FragmentMainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             ItemVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeVideoViewHolder(binding)
     }
@@ -29,6 +32,7 @@ class HomePopularAdapter(private val context: Context) : RecyclerView.Adapter<Re
         viewHolderType1.bind(item)
     }
 
+    inner class HomeVideoViewHolder(val binding: FragmentMainItemBinding) :
     inner class HomeVideoViewHolder(val binding: ItemVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewList) = binding.apply {
@@ -36,6 +40,8 @@ class HomePopularAdapter(private val context: Context) : RecyclerView.Adapter<Re
                 .load(Uri.parse(item.thumbnail))
                 .fitCenter()
                 .override(500, 400)
+                .into(imageView2)
+            searchText2.text = item.title
                 .into(itemVideoIvThumbnail)
             itemVideoTvTitle.text = item.title
 

@@ -63,8 +63,9 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
             val thumbnail = item.snippet.thumbnails.default.url
             val title = item.snippet.title
             val description = item.snippet.description
+            val url = "https://www.youtube.com/watch?v=" + item.id
 
-            val newList = NewList(thumbnail, title, description)
+            val newList = NewList(thumbnail, title, description, url)
             newListItems.add(newList)
         }
         return newListItems
