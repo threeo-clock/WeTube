@@ -62,7 +62,7 @@ class SearchFragment : Fragment() {
 
                 if (lastVisbleItemPosition == totalItemCount) {
                     val searchText = binding.etSearch.text.toString()
-                    if (searchText.isNotEmpty()) {
+                    if (searchText.isNotEmpty()  && searchViewModel.receivedResults < searchViewModel.totalResults) {
                         isLoading = true
                         searchViewModel.getSearchVideosData(searchText,requireContext())
                     }
