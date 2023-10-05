@@ -16,13 +16,14 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setUpBottomNavigationView()
     }
 
-    private fun setUpBottomNavigationView()= binding.apply{
+    private fun setUpBottomNavigationView() = binding.apply {
         homeFragment = HomeFragment()
         mypageFragment = MypageFragment()
 
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.frameLayout.id, fragment)
             .commit()
     }
+
     fun setSelectedNavItem(itemId: Int) {
         binding.bottomNavigationView.selectedItemId = itemId
     }
