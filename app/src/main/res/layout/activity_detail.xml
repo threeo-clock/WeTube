@@ -45,37 +45,38 @@
                 android:id="@+id/detail_img"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="fitCenter"
-                android:layout_marginTop="32dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="20dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/detail_sample" />
 
             <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_img">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginEnd="20dp">
 
                     <TextView
                         android:id="@+id/detail_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
+                        android:gravity="center"
                         android:hint="Title"
                         android:textSize="20dp"
                         android:textStyle="bold"
-                        android:gravity="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -84,14 +85,25 @@
                         android:id="@+id/detail_sub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="8dp"
+                        android:ellipsize="end"
                         android:hint="explanation"
+                        android:maxLines="5"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/detail_title"
                         app:layout_constraintStart_toStartOf="@+id/detail_title"
+                        app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+
+                    <Button
+                        android:id="@+id/detail_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="펼치기"
+                        app:layout_constraintBottom_toTopOf="@+id/detail_sub"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/detail_title" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

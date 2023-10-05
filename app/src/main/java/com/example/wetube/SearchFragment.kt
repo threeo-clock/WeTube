@@ -50,20 +50,16 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var currentPage = 1
-        var isLoading = false
-
         binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                val lastVisbleItemPosition = layoutManager.findLastVisibleItemPosition()
-                val totalItemCount = layoutManager.itemCount
+                val lastVisbleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val totalItemCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수
 
-                if (lastVisbleItemPosition + 1 == totalItemCount && !isLoading) {
-                    currentPage++
-                    isLoading = true
+                if (lastVisbleItemPosition == totalItemCount) {
+
                     val searchText = binding.etSearch.text.toString()
                     if (searchText.isNotEmpty()) {
                         searchViewModel.getSearchVideosData(searchText,requireContext())
