@@ -6,45 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.mypage.MypageFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_mypage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintBottom_toBottomOf="@id/iv_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_bg" />
+
+    <TextView
+        android:id="@+id/tv_channelname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="삼시세끼"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_mypage"
+        app:layout_constraintTop_toBottomOf="@id/iv_bg" />
+
+    <TextView
+        android:id="@+id/tv_channelinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="NBC 7기 3조 삼시세끼 입니다. \n 좋아요 구독 알림설정 꼭 부탁드립니다 😊"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/iv_mypage" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_mypage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/tv_channelname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="삼시세끼"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_channelinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="NBC 7기 3조 삼시세끼 입니다. \n 좋아요 구독 알림설정 꼭 부탁드립니다 😊"
-            android:textAlignment="center" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_favorite"
@@ -57,7 +61,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_channelinfo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_recyclerview"
