@@ -29,6 +29,7 @@ import com.example.wetube.viewmodel.SearchViewModel
 import com.example.wetube.viewmodel.SearchViewModelFactory
 
 class SearchFragment : Fragment() {
+    private var isLoading = false
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -50,18 +51,19 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                val lastVisbleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
-                val totalItemCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수
+                val lastVisbleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = recyclerView.adapter!!.itemCount -1
 
                 if (lastVisbleItemPosition == totalItemCount) {
-
                     val searchText = binding.etSearch.text.toString()
                     if (searchText.isNotEmpty()) {
+                        isLoading = true
                         searchViewModel.getSearchVideosData(searchText,requireContext())
                     }
                 }

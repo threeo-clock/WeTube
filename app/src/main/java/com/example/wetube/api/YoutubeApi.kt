@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val APIKEY = "AIzaSyCevsfPI5jKK5wWhwMX0QxGAzZMJ4QbS4M"
+const val APIKEY = "AIzaSyCi27TW1A0853L0ALxtzt7MVJyp3rIrJh0"
 
 interface YoutubeApi {
     @GET("videos?key=${APIKEY}")
@@ -33,7 +33,8 @@ interface YoutubeApi {
     suspend fun getSearchVideos(
         @Query("q") query: String?,
         @Query("part") part: String = "snippet",
-        @Query("maxResults") maxResults: Int? = 6,
-        @Query("regionCode") regionCode: String? = "KR"
+        @Query("maxResults") maxResults: Int? = 10,
+        @Query("regionCode") regionCode: String? = "KR",
+        @Query("pageToken") pageToken: String? = null
     ) : Response<SearchVideoItems>
 }
