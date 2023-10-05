@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import com.example.wetube.databinding.ActivityMainBinding
 import com.example.wetube.ui.home.HomeFragment
 import com.example.wetube.ui.mypage.MypageFragment
-import com.example.wetube.ui.search.SearchFragment
-import com.example.wetube.ui.mypage.MypageFragment
 
 
 // https://teamsparta.notion.site/e9cce6173ed04fbc871da4818668c4e6
@@ -18,13 +16,14 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setUpBottomNavigationView()
     }
 
-    private fun setUpBottomNavigationView()= binding.apply{
+    private fun setUpBottomNavigationView() = binding.apply {
         homeFragment = HomeFragment()
         mypageFragment = MypageFragment()
 
@@ -54,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.frameLayout.id, fragment)
             .commit()
     }
+
     fun setSelectedNavItem(itemId: Int) {
         binding.bottomNavigationView.selectedItemId = itemId
     }

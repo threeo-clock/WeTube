@@ -83,10 +83,12 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
                     val thumbnailUrl = thumbnails?.default?.url ?: "기본 이미지 URL을 여기에 설정"
                     val title = item.snippet.title ?: "제목 없음"
                     val description = item.snippet.description ?: "설명 없음"
+                    val channelTitle = item.snippet.channelTitle ?: "설명 없음"
                     val newList = ChannelItem(
                         thumbnail = thumbnailUrl,
                         title = title,
-                        description = description
+                        description = description,
+                        channelTitle = channelTitle
                     )
                     newData.add(newList)
                 }

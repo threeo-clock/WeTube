@@ -10,12 +10,11 @@ import com.bumptech.glide.Glide
 import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.ItemVideoBinding
 import com.example.wetube.model.ChannelItem
-import com.example.wetube.model.NewList
 import com.google.gson.GsonBuilder
 
 class HomeCategoryAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var items = ArrayList<ChannelItem>()
+    var items = mutableListOf<ChannelItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
@@ -34,11 +33,13 @@ class HomeCategoryAdapter(private val context: Context) : RecyclerView.Adapter<R
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChannelItem) = binding.apply {
             Glide.with(binding.root)
-                .load(Uri.parse(item.thumbnail))
+                .load(
+                    Uri.parse(item.thumbnail)
+                )
                 .fitCenter()
                 .override(500, 400)
-                .into(itemVideoIvThumbnail)
-            itemVideoTvTitle.text = item.title
+                .into(ivVideoThumbnail)
+            tvVideoTitle.text = item.title
 
             itemView.setOnClickListener {
                 val myIntent = Intent(itemView.context, DetailActivity::class.java)

@@ -79,3 +79,10 @@ data class NewList(
     val description: String,
     val url: String
 )
+
+data class ChannelItem(
+    val thumbnail: String,
+    val title: String,
+    val description: String,
+    val channelTitle: String,
+    )
