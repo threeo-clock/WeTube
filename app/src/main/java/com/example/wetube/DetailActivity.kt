@@ -44,6 +44,20 @@ class DetailActivity : AppCompatActivity() {
             }
             startActivity(Intent.createChooser(share, null))
         }
+
+        //더 보기 버튼
+        var test = true
+        binding.detailMore.setOnClickListener {
+            if(test==true) {
+                binding.detailSub.maxLines = 2147483647 //Int값 최대치
+                binding.detailMore.text = "접기"
+                test=false
+            } else{
+                binding.detailSub.maxLines = 5
+                binding.detailMore.text = "펼치기"
+                test=true
+            }
+        }
     }
     private fun updateLikeButtonState(thumbnail: String) {
         if (likesViewModel.isVideoLiked(thumbnail)) {
@@ -78,6 +92,4 @@ class DetailActivity : AppCompatActivity() {
         super.onBackPressed()
         overridePendingTransition(R.anim.enter_slide_up, R.anim.exit_slide_up)
     }
-    //메인에서 디테일로 넘어올때는 아래 코드 필요
-    //overridePendingTransition(R.anim.enter_slide_down, R.anim.enter_slide_down)
 }
