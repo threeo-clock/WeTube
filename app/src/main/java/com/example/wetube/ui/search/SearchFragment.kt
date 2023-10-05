@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wetube.databinding.FragmentSearchBinding
 import com.example.wetube.repository.RepositoryHomeVideos
 import com.example.wetube.ui.home.HomeFragment
@@ -29,6 +29,23 @@ class SearchFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
+    }
+
+    private lateinit var callback: OnBackPressedCallback
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backEvents()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 
     override fun onCreateView(
@@ -79,7 +96,7 @@ class SearchFragment : Fragment() {
                 binding.clBlankscreen.visibility = View.GONE
                 binding.searchRecyclerView.visibility = View.VISIBLE
                 searchAdapter.items.clear()
-                searchViewModel.getSearchVideosData(searchText, requireContext())
+//                searchViewModel.getSearchVideosData(searchText, requireContext())
             } else {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -97,15 +114,19 @@ class SearchFragment : Fragment() {
         }
 
         binding.ivSearchBack.setOnClickListener {
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .hide(this@SearchFragment)
-                .show(HomeFragment())
-                .commit()
-            (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
+           backEvents()
         }
 
     }
+    private fun backEvents(){
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .hide(this@SearchFragment)
+            .show(HomeFragment())
+            .commit()
+        (requireActivity() as MainActivity).setSelectedNavItem(R.id.fragment_home)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
