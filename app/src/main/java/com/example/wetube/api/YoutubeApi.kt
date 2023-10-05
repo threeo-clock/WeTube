@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val APIKEY = "AIzaSyCevsfPI5jKK5wWhwMX0QxGAzZMJ4QbS4M"
+const val APIKEY = "AIzaSyCaEJB6M6KZ8U2buAGMapXSIPBWJKXByL0"
 
 interface YoutubeApi {
     @GET("videos?key=${APIKEY}")
