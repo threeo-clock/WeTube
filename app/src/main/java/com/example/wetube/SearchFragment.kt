@@ -2,12 +2,14 @@ package com.example.wetube
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
@@ -99,6 +101,9 @@ class SearchFragment : Fragment() {
                 searchAdapter.items.addAll(items)
                 searchAdapter.notifyDataSetChanged()
             }
+
+            val hideKeyboard = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            hideKeyboard.hideSoftInputFromWindow(_binding?.etSearch!!.windowToken, 0)
         }
 
         binding.ivSearchBack.setOnClickListener {
