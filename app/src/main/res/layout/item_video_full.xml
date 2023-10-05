@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/container2">
+    android:padding="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_video_full_thumbnail"
+            android:layout_width="300dp"
             android:layout_height="140dp"
-            android:layout_margin="5dp"
             android:background="@drawable/shape_image"
+            android:backgroundTint="@color/black"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
             android:src="@drawable/img"
@@ -34,22 +29,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/search_text2"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_video_full_title"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
             android:ellipsize="end"
+            android:gravity="start"
             android:maxLines="1"
-            android:paddingStart="10dp"
             android:text="귀여운 강아지 한번 보고 가세요. 솜사탕 머리의 강아지"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_video_full_thumbnail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

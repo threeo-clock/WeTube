@@ -21,6 +21,8 @@ class SearchViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : 
     var nextPageToken: String? = null
     var isLoaging = false
     private val existingData = mutableListOf<NewList>()
+    var totalResults: Int = 0
+    var receivedResults: Int = 0
 
     fun getSearchVideosData(searchText: String, context: Context) =
         viewModelScope.launch(Dispatchers.Main) {
@@ -36,6 +38,8 @@ class SearchViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : 
                     existingData.addAll(filteredList)
                     _searchVideosResult.value = existingData
                     nextPageToken = searchVideoItems?.nextPageToken
+                    totalResults = searchVideoItems?.pageInfo?.totalResults ?: 0
+                    receivedResults += newList.size
                 } else {
                     when (response.code()) {
                         429 -> {

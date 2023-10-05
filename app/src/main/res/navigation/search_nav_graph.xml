@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.example.wetube.SearchFragment"
+        android:name="com.example.wetube.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" />
 </navigation>

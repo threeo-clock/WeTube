@@ -1,9 +1,7 @@
 package com.example.wetube.model
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
 data class HomeVideoItems(
     val kind: String,
@@ -81,3 +79,10 @@ data class NewList(
     val description: String,
     val url: String
 )
+
+data class ChannelItem(
+    val thumbnail: String,
+    val title: String,
+    val description: String,
+    val channelTitle: String,
+    )
