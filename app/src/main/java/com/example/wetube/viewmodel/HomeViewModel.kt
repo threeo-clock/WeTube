@@ -71,8 +71,8 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
         return newListItems
     }
 
-    fun fetchYoutubeData() = viewModelScope.launch(Dispatchers.Main) {
-        val response = repositoryHomeVideos.getPopularVideos()
+    fun fetchYoutubeData(categoryId: Int) = viewModelScope.launch(Dispatchers.Main) {
+        val response = repositoryHomeVideos.getCategoryList(categoryId)
         if (response.isSuccessful) {
             val youtubeApiResponse = response.body() // 유튜브 API 응답 데이터
             if (youtubeApiResponse != null) {
@@ -80,18 +80,23 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
                 // API 응답을 반복하면서 데이터를 newData에 추가
                 for (item in youtubeApiResponse.items!!) {
                     val thumbnails = item.snippet.thumbnails
-                    val thumbnailUrl = thumbnails?.default?.url ?: "기본 이미지 URL을 여기에 설정"
+                    val thumbnailUrl = thumbnails.high.url ?: "기본 이미지 URL을 여기에 설정"
                     val title = item.snippet.title ?: "제목 없음"
                     val description = item.snippet.description ?: "설명 없음"
-                    val channelTitle = item.snippet.channelTitle ?: "설명 없음"
+                    val channelId = item.snippet.categoryId ?: "설명 없음"
                     val newList = ChannelItem(
                         thumbnail = thumbnailUrl,
                         title = title,
                         description = description,
-                        channelTitle = channelTitle
+                        channelId = channelId
                     )
                     newData.add(newList)
+                    Log.d("itemData", item.toString())
+
                 }
+                Log.d("itemDataYoutube", youtubeApiResponse.items.toString())
+
+                Log.d("newData", newData.toString())
                 _originalData.value = newData
             } else {
                 Log.d("RetrofitError", "API 호출 응답이 null입니다.")

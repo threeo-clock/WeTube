@@ -11,6 +11,7 @@ class RepositoryHomeVideos {
     private val clientHome = RetrofitClient.apiService
     suspend fun getPopularVideos() : Response<HomeVideoItems> = clientHome.getHomePopularVideos()
     suspend fun getCategoryVideos(categoryId: String) = clientHome.getHomeCategoryVideos(categoryId = categoryId)
+    suspend fun getCategoryList(categoryId: Int) : Response<HomeVideoItems> = clientHome.getCategoryList(categoryId = categoryId)
     suspend fun getCategoryChannels() = clientHome.getHomeCategoryChannels()
     suspend fun getSearchVideos(searchText: String, pageToken: String? = null): Response<SearchVideoItems> = clientHome.getSearchVideos(searchText, pageToken = pageToken)
 }
