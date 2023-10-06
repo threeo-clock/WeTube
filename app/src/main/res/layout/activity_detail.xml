@@ -6,36 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
-    <EditText
-        android:id="@+id/detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="Title"
-        app:layout_constraintEnd_toEndOf="@+id/detail_img"
-        app:layout_constraintStart_toStartOf="@+id/detail_img"
-        app:layout_constraintTop_toBottomOf="@+id/detail_img" />
+    <ImageButton
 
-    <EditText
-        android:id="@+id/detail_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="explanation"
-        app:layout_constraintEnd_toEndOf="@+id/detail_title"
-        app:layout_constraintStart_toStartOf="@+id/detail_title"
-        app:layout_constraintTop_toBottomOf="@+id/detail_title" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/detail_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
         android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/detail_iv_heart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/detail_share"
@@ -48,15 +32,79 @@
         app:layout_constraintStart_toStartOf="@+id/detail_save"
         app:srcCompat="@android:drawable/ic_menu_share" />
 
-    <ImageView
-        android:id="@+id/detail_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/detail_sample" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/detail_img"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/detail_sample" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            app:layout_constraintTop_toBottomOf="@+id/detail_img">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:hint="Title"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/detail_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:hint="explanation"
+                    android:maxLines="5"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/detail_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="더보기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_sub" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/detail_img_test"
