@@ -60,7 +60,7 @@ class HomeViewModel(private val repositoryHomeVideos: RepositoryHomeVideos) : Vi
             return newListItems
         }
         for (item in homeVideoItems.items) {
-            val thumbnail = item.snippet.thumbnails.default.url
+            val thumbnail = item.snippet.thumbnails.high.url
             val title = item.snippet.title
             val description = item.snippet.description
             val url = "https://www.youtube.com/watch?v=" + item.id
