@@ -1,4 +1,4 @@
-package com.example.wetube
+package com.example.wetube.ui.search
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
-import com.example.wetube.databinding.ItemVideoBinding
+import com.example.wetube.DetailActivity
 import com.example.wetube.databinding.ItemVideoFullBinding
 import com.example.wetube.model.NewList
 import com.google.gson.GsonBuilder
