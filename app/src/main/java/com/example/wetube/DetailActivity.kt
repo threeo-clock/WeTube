@@ -20,8 +20,7 @@ import com.google.gson.Gson
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val likesViewModel: LikesViewModel by viewModels()
-    private lateinit var videoData: NewList
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,5 +99,32 @@ class DetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.enter_slide_up, R.anim.exit_slide_up)
+        val view = binding.root
+        setContentView(view)
+        //setContentView(R.layout.activity_detail)
+
+
+        binding.detailSave.setOnClickListener{
+            SaveData()
+            Toast.makeText(this, "저장버튼 클릭", Toast.LENGTH_SHORT).show()
+        }
+        LoadData()
+        binding.detailShare.setOnClickListener{
+            Toast.makeText(this,"공유버튼 클릭",Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun SaveData(){
+        val pref = getSharedPreferences("pref",0)
+        val edit = pref.edit()
+
+
+        edit.putString("Title",binding.detailTitle.text.toString())
+        edit.putString("Sub",binding.detailSub.text.toString())
+        edit.apply()
+    }
+    private fun LoadData(){
+        val pref = getSharedPreferences("pref",0)
+        binding.detailTitleTest.text = pref.getString("Title","")
+        binding.detailSubTest.text = pref.getString("Sub","")
     }
 }

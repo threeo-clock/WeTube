@@ -7,6 +7,7 @@
     tools:context=".DetailActivity">
 
     <ImageButton
+
         android:id="@+id/detail_save"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -104,5 +105,36 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/detail_img_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/detail_title_test"
+        app:layout_constraintEnd_toEndOf="@+id/detail_title_test"
+        app:layout_constraintStart_toStartOf="@+id/detail_title_test"
+        app:srcCompat="@drawable/detail_sample2" />
+
+    <TextView
+        android:id="@+id/detail_title_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/detail_sub_test"
+        app:layout_constraintEnd_toEndOf="@+id/detail_sub_test"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/detail_sub_test" />
+
+    <TextView
+        android:id="@+id/detail_sub_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
