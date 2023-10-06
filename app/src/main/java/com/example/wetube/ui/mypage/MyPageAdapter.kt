@@ -24,23 +24,22 @@ class MyPageAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
         val item = items[position]
         val viewHolder = holder as ItemViewHolder
         viewHolder.bind(item)
-        Log.d("Mypage Adapter", "bindviewholder")
     }
 
     override fun getItemCount(): Int {
-        Log.d("Mypage Adapter", items.size.toString())
         return items.size
     }
 
     inner class ItemViewHolder(val binding: ItemVideoFullBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewList) = binding.apply {
-            if (ivVideoFullThumbnail != null) {
-                Glide.with(binding.root)
-                    .load(Uri.parse(item.thumbnail))
-                    .fitCenter()
-                    .override(500, 400)
-                    .into(ivVideoFullThumbnail)
-            }
+                if (ivVideoFullThumbnail != null) {
+                    Glide.with(binding.root)
+                        .load(Uri.parse(item.thumbnail))
+                        .fitCenter()
+                        .override(500, 400)
+                        .into(ivVideoFullThumbnail)
+                }
+
             tvVideoFullTitle?.text = item.title
 
             itemView.setOnClickListener {
