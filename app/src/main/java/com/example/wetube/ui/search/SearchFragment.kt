@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wetube.databinding.FragmentSearchBinding
 import com.example.wetube.repository.RepositoryHomeVideos
 import com.example.wetube.ui.home.HomeFragment
@@ -62,23 +63,23 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-//        binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//
-//                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-//                val lastVisbleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
-//                val totalItemCount = recyclerView.adapter!!.itemCount - 1
-//
-//                if (lastVisbleItemPosition == totalItemCount) {
-//                    val searchText = binding.etSearch.text.toString()
-//                    if (searchText.isNotEmpty() && searchViewModel.receivedResults < searchViewModel.totalResults) {
-//                        isLoading = true
-//                        searchViewModel.getSearchVideosData(searchText, requireContext())
-//                    }
-//                }
-//            }
-//        })
+        binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val lastVisbleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = recyclerView.adapter!!.itemCount - 1
+
+                if (lastVisbleItemPosition == totalItemCount) {
+                    val searchText = binding.etSearch.text.toString()
+                    if (searchText.isNotEmpty() && searchViewModel.receivedResults < searchViewModel.totalResults) {
+                        isLoading = true
+                        searchViewModel.getSearchVideosData(searchText, requireContext())
+                    }
+                }
+            }
+        })
 
         searchAdapter = SearchAdapter(requireActivity())
         binding.searchRecyclerView.apply {
@@ -97,7 +98,7 @@ class SearchFragment : Fragment() {
                 binding.clBlankscreen.visibility = View.GONE
                 binding.searchRecyclerView.visibility = View.VISIBLE
                 searchAdapter.items.clear()
-//                searchViewModel.getSearchVideosData(searchText, requireContext())
+                searchViewModel.getSearchVideosData(searchText, requireContext())
             } else {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -115,11 +116,12 @@ class SearchFragment : Fragment() {
         }
 
         binding.ivSearchBack.setOnClickListener {
-           backEvents()
+            backEvents()
         }
 
     }
-    private fun backEvents(){
+
+    private fun backEvents() {
         requireActivity().supportFragmentManager
             .beginTransaction()
             .hide(this@SearchFragment)
