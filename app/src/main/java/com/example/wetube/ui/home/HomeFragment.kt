@@ -85,7 +85,6 @@ class HomeFragment : Fragment() {
         val homeViewModelFactory = HomeViewModelFactory(repositoryHomeVideos)
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         homeViewModel.getPopularVideosData()
-//        homeViewModel.fetchYoutubeData()
         homeViewModel.getCategoryVideos("selectedCategory")
 
         homeViewModel.popularVideosResult.observe(viewLifecycleOwner) { items ->
@@ -99,25 +98,52 @@ class HomeFragment : Fragment() {
             binding.homeSpinnerCategory.adapter = adapter
             binding.homeSpinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                    val selectedCategory = parent?.getItemAtPosition(position) as String
-//                    val filteredData =
-//                        homeViewModel.originalData.value?.filter { item -> item.channelTitle == selectedCategory }
-////                    val channelItemsList = homeViewModel.originalData.value
-////
-////                    channelItemsList?.let {
-////                        categoryAdapter.items.addAll(it)
-////                        Log.d(
-////                            "test1234", categoryAdapter.items.addAll(it).toString()
-////                        )
-////                    }
-////                    categoryAdapter.items.addAll(originData)
-////                    categoryAdapter.items.clear()
-//                    if (filteredData != null) {
-//                        categoryAdapter.items.addAll(filteredData)
-//                    }
-//                    categoryAdapter.notifyDataSetChanged()
-//                    homeViewModel.fetchYoutubeData()
-//                    homeViewModel.getCategoryVideos(selectedCategory)
+                    val selectedCategory = parent?.getItemAtPosition(position)
+                    Log.d("test12345555", selectedCategory.toString())
+                    homeViewModel.originalData.value?.filter { item ->
+                        item.channelId == selectedCategory
+                    }
+                    Log.d("test12333333", homeViewModel.originalData.value.toString())
+                    categoryAdapter.notifyDataSetChanged()
+                    categoryAdapter.items.clear()
+                    categoryAdapter.items.addAll(homeViewModel.originalData.value?.toMutableList() ?: mutableListOf())
+                    homeViewModel.fetchYoutubeData(
+                        when (selectedCategory.toString()) {
+                            "Film & Animation" -> 1
+                            "Autos & Vehicles" -> 2
+                            "Music" -> 10
+                            "Pets & Animals" -> 15
+                            "Sports" -> 17
+                            "Short Movies" -> 18
+                            "Travel & Events" -> 19
+                            "Gaming" -> 20
+                            "Videoblogging" -> 21
+                            "People & Blogs" -> 22
+                            "Comedy" -> 23
+                            "Entertainment" -> 24
+                            "News & Politics" -> 25
+                            "Howto & Style" -> 26
+                            "Education" -> 27
+                            "Science & Technology" -> 28
+                            "Nonprofits & Activism" -> 29
+                            "Movies" -> 30
+                            "Anime/Animation" -> 31
+                            "Action/Adventure" -> 32
+                            "Classics" -> 33
+                            "Comedy" -> 34
+                            "Documentary" -> 35
+                            "Drama" -> 36
+                            "Family" -> 37
+                            "Foreign" -> 38
+                            "Horror" -> 39
+                            "Sci-Fi/Fantasy" -> 40
+                            "Thriller" -> 41
+                            "Shorts" -> 42
+                            "Shows" -> 43
+                            else -> 44
+                        }
+                    )
+                    Log.d("test123123123", selectedCategory.toString())
 
                 }
 
@@ -127,8 +153,8 @@ class HomeFragment : Fragment() {
             }
 
         }
-    }
 
+    }
 
 
     override fun onDestroyView() {

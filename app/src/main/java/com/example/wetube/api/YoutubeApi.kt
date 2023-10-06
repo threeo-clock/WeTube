@@ -16,6 +16,7 @@ interface YoutubeApi {
     suspend fun getHomePopularVideos(
         @Query("part") part: String = "snippet",
         @Query("chart") chart: String = "mostPopular",
+        @Query("maxResults") maxResults: Int? = 30,
         @Query("regionCode") regionCode: String = "KR",
         @Query("videoCategoryId") categoryId: String? = null
     ) : Response<HomeVideoItems>
@@ -41,4 +42,14 @@ interface YoutubeApi {
         @Query("regionCode") regionCode: String? = "KR",
         @Query("pageToken") pageToken: String? = null
     ) : Response<SearchVideoItems>
+
+    @GET("videos")
+    suspend fun getCategoryList(
+        @Query("key") apiKey: String = APIKEY,
+        @Query("part") part: String = "snippet",
+        @Query("chart") chart: String = "mostPopular",
+        @Query("videoCategoryId") categoryId: Int=17 ,
+        @Query("maxResults") maxResults: Int? = 30,
+        @Query("regionCode") regionCode: String = "KR",
+    ) : Response<HomeVideoItems>
 }
