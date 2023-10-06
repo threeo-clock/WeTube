@@ -20,7 +20,8 @@ import com.google.gson.Gson
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-
+    private val likesViewModel: LikesViewModel by viewModels()
+    private lateinit var videoData: NewList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
