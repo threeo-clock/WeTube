@@ -2,6 +2,7 @@ package com.example.wetube.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +27,30 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     private var originData: MutableList<ChannelItem> = mutableListOf(
-        ChannelItem("https://i.ytimg.com/an_webp/mHNCM-YALSA/mqdefault_6s.webp?du=3000&sqp=CKDZ-agG&rs=AOn4CLB2XUUzqY1yrmVuJdgfxOv81xR-PQ","정국 (Jung Kook) '3D (feat. Jack Harlow)' Official MV","test","Music"),
-        ChannelItem("https://i.ytimg.com/vi/_Hu4GYtye5U/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA8N7XMh_hiyJZobPJ7gbu943YwWA","IVE 아이브 'Either Way’ MV\n","test","Music"),
-        ChannelItem("https://i.ytimg.com/vi/EIz09kLzN9k/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCSe58umeHjJgBjSHjiTkm6OcF6Mw","AKMU - ‘Love Lee’ M/V\n","test","Music"),
-        ChannelItem("https://i.ytimg.com/vi/_GgIt2EFHV8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvhyfkd0KJ_VV-eC9sIPOZqgGISA","JEON SOMI (전소미) - ‘Fast Forward’ M/V\n","test","Music"),
+        ChannelItem(
+            "https://i.ytimg.com/an_webp/mHNCM-YALSA/mqdefault_6s.webp?du=3000&sqp=CKDZ-agG&rs=AOn4CLB2XUUzqY1yrmVuJdgfxOv81xR-PQ",
+            "정국 (Jung Kook) '3D (feat. Jack Harlow)' Official MV",
+            "test",
+            "Music"
+        ),
+        ChannelItem(
+            "https://i.ytimg.com/vi/_Hu4GYtye5U/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA8N7XMh_hiyJZobPJ7gbu943YwWA",
+            "IVE 아이브 'Either Way’ MV\n",
+            "test",
+            "Music"
+        ),
+        ChannelItem(
+            "https://i.ytimg.com/vi/EIz09kLzN9k/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCSe58umeHjJgBjSHjiTkm6OcF6Mw",
+            "AKMU - ‘Love Lee’ M/V\n",
+            "test",
+            "Music"
+        ),
+        ChannelItem(
+            "https://i.ytimg.com/vi/_GgIt2EFHV8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvhyfkd0KJ_VV-eC9sIPOZqgGISA",
+            "JEON SOMI (전소미) - ‘Fast Forward’ M/V\n",
+            "test",
+            "Music"
+        ),
 
         )
 
@@ -64,7 +85,7 @@ class HomeFragment : Fragment() {
         val homeViewModelFactory = HomeViewModelFactory(repositoryHomeVideos)
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         homeViewModel.getPopularVideosData()
-        homeViewModel.fetchYoutubeData()
+//        homeViewModel.fetchYoutubeData()
         homeViewModel.getCategoryVideos("selectedCategory")
 
         homeViewModel.popularVideosResult.observe(viewLifecycleOwner) { items ->
@@ -78,22 +99,25 @@ class HomeFragment : Fragment() {
             binding.homeSpinnerCategory.adapter = adapter
             binding.homeSpinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val selectedCategory = parent?.getItemAtPosition(position) as String
-                    val filteredData =
-                        homeViewModel.originalData.value?.filter { item -> item.channelTitle == selectedCategory }
-//                    val channelItemsList = homeViewModel.originalData.value
-
-//                    channelItemsList?.let {
-//                        categoryAdapter.items.addAll(it)
+//                    val selectedCategory = parent?.getItemAtPosition(position) as String
+//                    val filteredData =
+//                        homeViewModel.originalData.value?.filter { item -> item.channelTitle == selectedCategory }
+////                    val channelItemsList = homeViewModel.originalData.value
+////
+////                    channelItemsList?.let {
+////                        categoryAdapter.items.addAll(it)
+////                        Log.d(
+////                            "test1234", categoryAdapter.items.addAll(it).toString()
+////                        )
+////                    }
+////                    categoryAdapter.items.addAll(originData)
+////                    categoryAdapter.items.clear()
+//                    if (filteredData != null) {
+//                        categoryAdapter.items.addAll(filteredData)
 //                    }
-                    categoryAdapter.items.addAll(originData)
-//                    categoryAdapter.items.clear()
-                    if (filteredData != null) {
-                        categoryAdapter.items.addAll(filteredData)
-                    }
-                    categoryAdapter.notifyDataSetChanged()
-                    homeViewModel.fetchYoutubeData()
-                    homeViewModel.getCategoryVideos(selectedCategory)
+//                    categoryAdapter.notifyDataSetChanged()
+//                    homeViewModel.fetchYoutubeData()
+//                    homeViewModel.getCategoryVideos(selectedCategory)
 
                 }
 
@@ -104,6 +128,7 @@ class HomeFragment : Fragment() {
 
         }
     }
+
 
 
     override fun onDestroyView() {

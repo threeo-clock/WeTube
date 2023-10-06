@@ -32,8 +32,8 @@ class DetailActivity : AppCompatActivity() {
 
         binding.detailSave.bringToFront()
 
-        likesViewModel.currentLikedState.observe(this, Observer {
-            isLiked -> updateLikeButtonState(isLiked)
+        likesViewModel.currentLikedState.observe(this, Observer { isLiked ->
+            updateLikeButtonState(isLiked)
         })
 
         binding.detailSave.setOnClickListener {
@@ -54,17 +54,18 @@ class DetailActivity : AppCompatActivity() {
         //더 보기 버튼
         var test = true
         binding.detailMore.setOnClickListener {
-            if(test==true) {
-                binding.detailSub.maxLines = 2147483647 //Int값 최대치
+            if (test == true) {
+                binding.detailSub.maxLines = Int.MAX_VALUE //Int값 최대치
                 binding.detailMore.text = "접기"
-                test=false
-            } else{
+                test = false
+            } else {
                 binding.detailSub.maxLines = 5
                 binding.detailMore.text = "펼치기"
-                test=true
+                test = true
             }
         }
     }
+
     private fun updateLikeButtonState(isLiked: Boolean, showToast: Boolean = true) {
         if (isLiked) {
             binding.detailSave.setImageResource(R.drawable.detail_iv_heart_fill)
@@ -74,6 +75,7 @@ class DetailActivity : AppCompatActivity() {
             if (showToast) Toast.makeText(this, "마이페이지에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun setResult() {
         val videoDataJson = intent.getStringExtra("videoData")
         val gson = Gson()
@@ -89,6 +91,7 @@ class DetailActivity : AppCompatActivity() {
             binding.detailSub.setHtmlText(videoData.description)
         }
     }
+
     fun TextView.setHtmlText(htmlText: String) {
         this.text = Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY)
     }

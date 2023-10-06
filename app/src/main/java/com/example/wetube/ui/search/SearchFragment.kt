@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wetube.databinding.FragmentSearchBinding
 import com.example.wetube.repository.RepositoryHomeVideos
 import com.example.wetube.ui.home.HomeFragment
+import com.example.wetube.ui.search.SearchAdapter
 import com.example.wetube.viewmodel.SearchViewModel
 import com.example.wetube.viewmodel.SearchViewModelFactory
 
